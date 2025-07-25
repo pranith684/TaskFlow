@@ -1,0 +1,58 @@
+/* frontend/src/styles/theme.css */
+
+/* --- Light Theme (Default) --- */
+:root {
+  --primary-color: #4f46e5;
+  --primary-hover: #4338ca;
+  --secondary-color: #10b981;
+  --danger-color: #ef4444;
+  --warning-color: #f59e0b;
+  
+  --background-color: #f3f4f6;   /* Light grey background */
+  --card-background: #ffffff;     /* White cards */
+  
+  --text-primary: #111827;        /* Dark grey text */
+  --text-secondary: #6b7280;    /* Lighter grey text */
+  --text-light: #ffffff;
+  
+  --border-color: #e5e7eb;
+  --shadow-color: rgba(0, 0, 0, 0.05);
+}
+
+/* --- ✅ ENHANCEMENT: Dark Theme --- */
+body.dark-theme {
+  --primary-color: #6366f1;       /* A slightly brighter indigo for dark mode */
+  --primary-hover: #818cf8;
+  --secondary-color: #10b981;
+  --danger-color: #f87171;
+  --warning-color: #facc15;
+
+  --background-color: #111827;   /* Very dark blue/grey background */
+  --card-background: #1f2937;     /* Darker grey for cards */
+
+  --text-primary: #f9fafb;        /* Off-white text */
+  --text-secondary: #9ca3af;    /* Lighter grey for secondary text */
+  --text-light: #ffffff;
+
+  --border-color: #374151;        /* Darker border color */
+  --shadow-color: rgba(0, 0, 0, 0.2);
+}
+
+
+/* Global Styles */
+body {
+  background-color: var(--background-color);
+  color: var(--text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Skeleton Loading Animation */
+@keyframes skeleton-loading {
+  0% { background-color: rgba(128, 128, 128, 0.1); }
+  100% { background-color: rgba(128, 128, 128, 0.2); }
+}
+
+.skeleton {
+  animation: skeleton-loading 1s linear infinite alternate;
+  border-radius: 8px;
+}

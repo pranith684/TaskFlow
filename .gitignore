@@ -1,0 +1,9 @@
+# Dependencies
+/backend/node_modules
+/backend/frontend/node_modules
+
+# Environment variables
+/backend/.env
+
+# Build folder
+/backend/frontend/build

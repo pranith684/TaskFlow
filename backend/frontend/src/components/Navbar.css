@@ -1,0 +1,105 @@
+/* frontend/src/components/Navbar.css */
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.8rem 2rem;
+  background-color: var(--card-background);
+  box-shadow: 0 2px 4px var(--shadow-color);
+  border-bottom: 1px solid var(--border-color);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  transition: background-color 0.3s ease; /* Smooth transition for theme change */
+}
+
+.navbar-left, .navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-primary); /* Sets the color for the container */
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+/* ✅ FIX: Explicitly set the text color on the span inside the brand link */
+/* This ensures it overrides any default link colors in dark mode. */
+.navbar-brand span {
+    color: var(--text-primary);
+}
+
+.navbar-brand svg {
+    color: var(--primary-color); /* Keep the icon's outline the primary color */
+}
+
+.navbar-links {
+    display: flex;
+    gap: 1rem;
+    margin-left: 1rem;
+}
+
+.nav-link {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    text-decoration: none;
+    padding: 0.5rem 0;
+    position: relative;
+    transition: color 0.2s;
+}
+
+.nav-link:hover {
+    color: var(--primary-color);
+}
+
+.nav-link.active {
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+.nav-link.active::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: var(--primary-color);
+}
+
+.navbar-username {
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.navbar-username:hover {
+    color: var(--primary-color);
+}
+
+.navbar-logout-btn {
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  font-weight: bold;
+  color: var(--text-light);
+  background-color: var(--danger-color);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.navbar-logout-btn:hover {
+  opacity: 0.9;
+}
