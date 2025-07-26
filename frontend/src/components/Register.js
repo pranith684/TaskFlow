@@ -32,11 +32,11 @@ function Register() {
     setLoading(true);
     setError('');
     try {
-      await axios.post('http://localhost:3001/register', { name, email, password });
+      await axios.post('/register', { name, email, password });
       navigate('/');
     } catch (err) {
-      if (err.response) { setError(err.response.data.error || 'An unknown server error occurred.'); } 
-      else if (err.request) { setError('Cannot connect to the server. Please check the backend is running.'); } 
+      if (err.response) { setError(err.response.data.error || 'An unknown server error occurred.'); }
+      else if (err.request) { setError('Cannot connect to the server. Please check the backend is running.'); }
       else { setError('An error occurred while preparing the request.'); }
     } finally {
       setLoading(false);
