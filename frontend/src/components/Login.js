@@ -31,14 +31,14 @@ function Login() {
     setLoading(true);
     setError('');
     try {
-      const res = await axios.post('http://localhost:3001/login', { email, password });
+      const res = await axios.post('/login', { email, password });
       if (res.data.status === 'ok') {
         localStorage.setItem('token', res.data.token);
         navigate('/dashboard');
       }
     } catch (err) {
-      if (err.response) { setError(err.response.data.error || 'An unknown server error occurred.'); } 
-      else if (err.request) { setError('Cannot connect to the server. Please check the backend is running.'); } 
+      if (err.response) { setError(err.response.data.error || 'An unknown server error occurred.'); }
+      else if (err.request) { setError('Cannot connect to the server. Please check the backend is running.'); }
       else { setError('An error occurred while preparing the request.'); }
     } finally {
       setLoading(false);
