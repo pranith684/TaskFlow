@@ -22,7 +22,7 @@ function Navbar() {
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) {
-      axios.get('http://localhost:3001/me', {
+      axios.get('/me', {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then(res => setUser(res.data))
