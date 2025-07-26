@@ -14,7 +14,7 @@ function Profile() {
 
   useEffect(() => {
     const token = localStorage.getItem('token');
-    axios.get('http://localhost:3001/me', {
+    axios.get('/me', {
       headers: { Authorization: `Bearer ${token}` }
     })
     .then(res => setUser(res.data))
@@ -32,7 +32,7 @@ function Profile() {
 
     try {
       const token = localStorage.getItem('token');
-      const res = await axios.post('http://localhost:3001/change-password', 
+      const res = await axios.post('/change-password',
         { currentPassword, newPassword },
         { headers: { Authorization: `Bearer ${token}` } }
       );
