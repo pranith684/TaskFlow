@@ -2,9 +2,7 @@
 
 TaskFlow is a modern, professional, and feature-rich to-do list application built with the MERN stack (MongoDB, Express.js, React, Node.js). It provides a complete user authentication system and a beautiful, intuitive interface for managing daily tasks.
 
-![TaskFlow Tasks Page](https://i.imgur.com/your-tasks-page-image.png) <!-- You can take a screenshot of your tasks page and upload it to a site like imgur.com to get a link -->
-
----
+![TaskFlow Tasks Page](https://i.imgur.com/your-tasks-page-image.png) ---
 
 ## Features
 
@@ -37,7 +35,7 @@ To run this project on your local machine, follow these steps:
 
 1.  **Clone the repository:**
     ```bash
-    git clone [https://github.com/your-username/taskflow.git](https://github.com/your-username/taskflow.git)
+    git clone [https://github.com/pranith684/taskflow.git](https://github.com/pranith684/taskflow.git)
     cd taskflow
     ```
 2.  **Install Backend Dependencies:**
