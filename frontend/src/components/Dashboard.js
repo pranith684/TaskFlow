@@ -18,7 +18,7 @@ function Dashboard() {
 
   useEffect(() => {
     const token = localStorage.getItem('token');
-    axios.get('http://localhost:3001/stats', {
+    axios.get('/stats', {
       headers: { Authorization: `Bearer ${token}` }
     })
     .then(res => {
