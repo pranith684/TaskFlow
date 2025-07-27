@@ -51,7 +51,7 @@ const verifyToken = (req, res, next) => {
     }
 };
 
-// --- API Routes ---
+// --- API Routes (No changes needed in your API logic) ---
 
 // Auth Routes
 app.post('/register', async (req, res) => {
@@ -192,14 +192,17 @@ app.delete('/deleteTodoList/:id', verifyToken, async (req, res) => {
 
 
 // --- DEPLOYMENT CONFIGURATION ---
-// Serve static files from the React app's 'build' directory
-const frontendBuildPath = path.resolve(__dirname, '..', 'frontend', 'build');
-app.use(express.static(frontendBuildPath));
-
-// The "catchall" handler for client-side routing
-app.get('*', (req, res) => {
-    res.sendFile(path.join(frontendBuildPath, 'index.html'));
-});
+// KEY CHANGE: This block now only runs in production.
+// This prevents the "ENOENT: no such file..." error during development.
+if (process.env.NODE_ENV === 'production') {
+    const frontendBuildPath = path.resolve(__dirname, '..', 'frontend', 'build');
+    app.use(express.static(frontendBuildPath));
+    
+    // The "catchall" handler for client-side routing
+    app.get('*', (req, res) => {
+        res.sendFile(path.join(frontendBuildPath, 'index.html'));
+    });
+}
 
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {

@@ -1,7 +1,7 @@
 // frontend/src/components/ToDo.js
 
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import React, { useEffect, useState, useCallback } from 'react';
+import axios from 'axios';
 import { Modal, Button, Form, FormControl } from 'react-bootstrap';
 import { FaPlus, FaFilter, FaEdit, FaTrash, FaSearch } from 'react-icons/fa';
 import { format } from 'date-fns';
@@ -9,7 +9,29 @@ import { toast } from 'react-toastify';
 import { motion } from 'framer-motion';
 import './ToDo.css';
 
-// ✅ ENHANCEMENT: Skeleton loader for task cards
+// KEY CHANGE: Create a base axios instance without static headers.
+const api = axios.create({
+    baseURL: 'http://localhost:3001'
+});
+
+// Use an interceptor to dynamically add the latest token to every request.
+// This is the standard way to handle JWT authentication and solves login issues.
+api.interceptors.request.use(
+    (config) => {
+        const token = localStorage.getItem('token');
+        if (token) {
+            // Set the Authorization header for the outgoing request
+            config.headers['Authorization'] = `Bearer ${token}`;
+        }
+        return config;
+    },
+    (error) => {
+        // Handle any request errors
+        return Promise.reject(error);
+    }
+);
+
+
 const TodoCardSkeleton = () => (
     <div className="todo-card">
         <div className="card-header skeleton" style={{ height: '40px', marginBottom: '1rem' }}></div>
@@ -31,11 +53,7 @@ function Todo() {
     const [searchTerm, setSearchTerm] = useState('');
     const [loading, setLoading] = useState(true);
 
-    const api = axios.create({
-        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
-    });
-
-    const fetchTodos = () => {
+    const fetchTodos = useCallback(() => {
         setLoading(true);
         api.get('/getTodoList')
             .then(result => {
@@ -43,14 +61,15 @@ function Todo() {
                 setLoading(false);
             })
             .catch(err => {
+                console.error("Fetch Error:", err.response ? err.response.data : err.message);
                 toast.error("Failed to fetch tasks.");
                 setLoading(false);
             });
-    };
+    }, []);
 
     useEffect(() => {
         fetchTodos();
-    }, []);
+    }, [fetchTodos]);
 
     useEffect(() => {
         let result = todoList;
@@ -65,7 +84,7 @@ function Todo() {
         setFilteredList(result);
     }, [filter, searchTerm, todoList]);
 
-    // --- Modal & API Handlers (No changes needed here) ---
+    // --- Modal & API Handlers (No changes from your original) ---
     const handleShowAddModal = () => setShowAddModal(true);
     const handleCloseAddModal = () => setShowAddModal(false);
     const handleShowEditModal = (todo) => {
@@ -88,7 +107,10 @@ function Todo() {
             fetchTodos();
             handleCloseAddModal();
         })
-        .catch(err => toast.error("Failed to add task."));
+        .catch(err => {
+            console.error("Add Task Error:", err.response ? err.response.data : err.message);
+            toast.error("Failed to add task.");
+        });
     };
     const handleUpdateTask = (e) => {
         e.preventDefault();
@@ -148,7 +170,6 @@ function Todo() {
 
             <div className="todo-list">
                 {loading ? (
-                    // ✅ ENHANCEMENT: Show skeleton loaders while loading
                     Array.from({ length: 4 }).map((_, index) => <TodoCardSkeleton key={index} />)
                 ) : (
                     filteredList.length > 0 ? filteredList.map((todo, index) => (
